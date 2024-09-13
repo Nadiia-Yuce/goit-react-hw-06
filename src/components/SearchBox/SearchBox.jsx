@@ -1,6 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
 import css from "./SearchBox.module.css";
+import { changeFilter } from "../../redux/store";
 
 export default function SearchBox() {
+  const dispatch = useDispatch();
+  const query = useSelector(state => state.filters.name);
+
+  const handleChange = evt => {
+    dispatch(changeFilter(evt.target.value));
+  };
   return (
     <div className={css.searchContainer}>
       <label htmlFor="searchId" className={css.label}>
@@ -10,10 +18,9 @@ export default function SearchBox() {
         className={css.input}
         type="text"
         name="search"
-        value={"value"}
+        value={query}
         id="searchId"
-        // onSearch = setsearchValue, в який передаємо поточне значення інпуту, яке запишеться в стан
-        onChange={evt => "onSearch"(evt.target.value)}
+        onChange={handleChange}
       />
     </div>
   );
