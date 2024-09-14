@@ -1,15 +1,16 @@
+import { deleteContact } from "../../redux/contactsSlice";
 import { FaPhone, FaUser } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import clsx from "clsx";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 import css from "./Contact.module.css";
-import { deleteContact, startRemoving } from "../../redux/store";
+import clsx from "clsx";
 
 export default function Contact({ contact: { name, number, id } }) {
-  const isRemoving = useSelector(state => state.contacts.isRemoving);
+  const [isRemoving, setIsRemoving] = useState(false);
   const dispatch = useDispatch();
 
   const handleRemove = () => {
-    dispatch(startRemoving());
+    setIsRemoving(true);
 
     setTimeout(() => {
       dispatch(deleteContact(id));
